@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.myshop.platform.common.base.DataGridModel;
 import cn.myshop.platform.entitys.SysUser;
 
  /**
@@ -15,6 +16,7 @@ import cn.myshop.platform.entitys.SysUser;
 public interface SysUserService {
 	public SysUser getSysUser(SysUser sysUser);
 	public List<SysUser> querySysUser(Map<String,String> userMap);
+	public DataGridModel querySysUserData(DataGridModel dataGrid);
 	public SysUser addSysUser(SysUser sysUser);
 	public SysUser updateSysUser(SysUser sysUser);
 	public SysUser batchDelSysUser(HashMap userMap);

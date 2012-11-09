@@ -32,7 +32,6 @@ public class RequestParmConvert {
 			name= (String) e.nextElement();
 			parmMap.put(name, request.getParameter(name));
 		}
-		setPaginationRows(parmMap);
 		return parmMap;
 	}
 
@@ -45,6 +44,7 @@ public class RequestParmConvert {
 	  */
 	@SuppressWarnings("unchecked")
 	public static DataGridModel intropectToDataGrid(HttpServletRequest request,DataGridModel dataGrid) {
+		//每页条数
 		if(StringUtils.isNotEmpty(request.getParameter("rows"))){
 			dataGrid.setPageRows(Integer.valueOf(request.getParameter("rows")));
 		}
@@ -52,17 +52,4 @@ public class RequestParmConvert {
 		return dataGrid;
 	}
 	
-	/**
-	 * 设置分页查询数据条数
-	 * @param map
-	 */
-	private static void setPaginationRows(Map<String,String> map){
-		if(StringUtils.isNotEmpty(map.get("rows"))&&StringUtils.isNotEmpty(map.get("page"))){
-			int page=Integer.valueOf(map.get("page"));
-			int pageRows=Integer.valueOf(map.get("rows"));
-			map.put("startRow", String.valueOf((page-1)*pageRows));
-			map.put("endRow", String.valueOf((page-1)*pageRows+pageRows));
-			
-		}
-	}
 }

@@ -12,7 +12,7 @@ import java.util.Map;
 public class DataGridModel  implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private int page; //当前页,名字必须为page
+	private int page=1; //当前页,默认为第一页
 	private int pageRows=10 ; //每页显示条数,默认10条
 	private String sort; //排序字段
 	private String order; //排序规则

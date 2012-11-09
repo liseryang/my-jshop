@@ -85,21 +85,22 @@ public class BaseDaoTemplate {
 			StatementScope statementScope = new StatementScope(sessionScope);
 			sessionScope.incrementRequestStackDepth();
 			mappedStatement.initRequest(statementScope);
-			String querySql = stmtSql.getSql(statementScope, objectParm);
+			String querySql = stmtSql.getSql(statementScope, objectParm).toUpperCase();
 			// 确保执行的sql为查询类型sql
-			if (querySql.trim().indexOf("select") != 0) {
+			if (querySql.trim().indexOf("SELECT") != 0) {
 				throw new Exception("The currently executing SQL statement, not the query sql。ibatis statement id："+statementId);
 			}
 			String countSql = " select count(1) dataCount from (" + querySql + ") t1 ";
 			int count = getJdbcTemplate().queryForInt(countSql);
 			return count;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return 0;
 		}
 	}
 	
 	/**
-	 * 基于ibatis分页扩展实现，返回类型为List
+	 * 基于ibatis的物理分页方法，返回类型为List
 	 * 
 	 * @param statementId
 	 * @param dataGrid
@@ -108,12 +109,14 @@ public class BaseDaoTemplate {
 	@SuppressWarnings("unchecked")
 	public List queryForPageList(String statementId, DataGridModel dataGrid) {
 		if(StringUtils.isNotEmpty(statementId)||dataGrid==null)return null;
-		List rows=	getIbatisTemplate().queryForList(statementId,dataGrid.getQueryMap(), dataGrid.getStartRow(),dataGrid.getEndRow());
+		int page=dataGrid.getPage();
+		int pageRows=dataGrid.getPageRows();
+		List rows=	getIbatisTemplate().queryForList(statementId,dataGrid.getQueryMap(),(page-1)*pageRows,(page-1)*pageRows+pageRows);
 		return rows;
 	}
 
 	/**
-	 * 基于ibatis分页扩展实现，返回类型为DataGridModel
+	 *  基于ibatis的物理分页方法，返回类型为DataGridModel
 	 * 
 	 * @param statementId
 	 * @param dataGrid
@@ -121,11 +124,14 @@ public class BaseDaoTemplate {
 	 */
 	@SuppressWarnings("unchecked")
 	public DataGridModel queryForPageDataGrid(String statementId,DataGridModel dataGrid) {
-		if(StringUtils.isNotEmpty(statementId)||dataGrid==null)return null;
-		List rows=	getIbatisTemplate().queryForList(statementId,dataGrid.getQueryMap(), dataGrid.getStartRow(),dataGrid.getEndRow());
-		int queryTotal=getQueryCount(statementId,dataGrid.getQueryMap());
+		if(StringUtils.isEmpty(statementId)||dataGrid==null)return null;
+		
+		dataGrid.setTotal(getQueryCount(statementId,dataGrid.getQueryMap()));
+		
+		int page=dataGrid.getPage();
+		int pageRows=dataGrid.getPageRows();
+		List rows=	getIbatisTemplate().queryForList(statementId,dataGrid.getQueryMap(),(page-1)*pageRows,(page-1)*pageRows+pageRows);
 		dataGrid.setRows(rows);
-		dataGrid.setTotal(queryTotal);
 		return dataGrid;
 	}
 

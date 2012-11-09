@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-    <title>人员管理</title>
+    <title>用户管理</title>
     <%@ include file="/jsp/common/public.jsp" %>
  	<script>
 		var products = [
@@ -24,7 +24,7 @@
 		$(function(){
 			var lastIndex;
 			$('#tt').datagrid({
-				url:'<%=basePath%>/sys/querySysUser.do?sysUser.orgId=123&deptId=456',
+				url:'<%=basePath%>/sys/querySysUser.do',
 				fitColumns:true,
 				pagination:true,
 				rownumbers:false,
@@ -35,22 +35,14 @@
 				toolbar:[{
 					text:'添加',
 					iconCls:'icon-add',
-					handler:function(){
-					
-						$('#tt').datagrid('endEdit', lastIndex);
-						$('#tt').datagrid('appendRow',{
-							itemid:'',
-							productid:'',
-							listprice:'',
-							unitprice:'',
-							attr1:'',
-							status:''
-						});
-						lastIndex = $('#tt').datagrid('getRows').length-1;
-						$('#tt').datagrid('selectRow', lastIndex);
-						$('#tt').datagrid('beginEdit', lastIndex);
+					handler:function(){ 
+					$('#userAdd').dialog('open');
+					$('#openUserIframe').attr("src","http://localhost:80/myShop/sys/user_add.do");
+						 //$('#openXXXIframe')[0].src='<%=basePath%>/sys/user_mng.do'; 
+						// $('#openUserAdd').dialog('open'); 
+						 
 					}
-				},'-',{
+				  },'-',{
 					text:'删除',
 					iconCls:'icon-remove',
 					handler:function(){
@@ -91,9 +83,27 @@
 					lastIndex = rowIndex;
 				}
 			});
-		});
-		
-		
+			
+			$("#userAdd").dialog({
+			resizable:true,
+			maximizable:true,
+				buttons:[{
+					text:'添加',
+					iconCls:'icon-ok',
+					handler:function(){
+						alert('ok');
+					}
+				},{
+					text:'关闭',
+					iconCls:'icon-cancel',
+					handler:function(){
+						$('#userAdd').dialog('close');
+					}
+				}]
+			});		
+		  }
+		);
+
 	   var status = [
 		    {statusid:0,name:'正常'},
 		    {statusid:1,name:'停用'},
@@ -108,8 +118,8 @@
 	</script>
 </head>
 <body>
-  <div class="page_title" >人员管理</div>
-	<table id="tt" style="width:auto;height:auto;" title="人员列表" iconCls="icon-edit" singleSelect="false" idField="itemid">
+  <div class="page_title">用户管理</div>
+	<table id="tt" style="width:auto;height:auto;" title="用户列表" iconCls="icon-edit" singleSelect="false" idField="itemid">
 		<thead>
 			<tr>
 				<th field="userId" width="10%">编号</th>
@@ -117,11 +127,21 @@
 				<th field="realName" width="15%" align="center">真实姓名</th>
 				<th field="email" width="15%" editor="text" align="center">邮箱</th>
 				<th field="lastLogin" width="15%" align="center">最近登录时间</th>
-				<th field="ipAddress" width="10%" align="center">最近使用IP</th>
+				<th field="lastIp" width="10%" align="center">最近使用IP</th>
 				<th field="status" width="6%" align="center" formatter="statusFormatter" editor="{type:'combobox',options:{valueField:'statusid',textField:'name',data:status,required:true,editable:false}}">状态</th>
 			</tr>
 		</thead>
 	</table>
+	
+	
+	<div id="userAdd" icon="icon-save" title="添加用户" closed="true" modal="true" style="padding:0px;width:650px;height:300px;">
+		<iframe scrolling="auto" id='openUserIframe' frameborder="0"  src="" style="width:100%;height:100%;"></iframe>
+	</div>
+	
+	
+  <div id="openUserAdd" class="easyui-window" closed="true" modal="true" title="添加用户" style="width:500px;height:350px;"> 
+    <iframe scrolling="auto" id='openXXXIframe' frameborder="0"  src="" style="width:100%;height:100%;"></iframe> 
+  </div> 
 	
 </body>
 </html>
