@@ -31,7 +31,7 @@ public class SysUser  {
      private Date unlockTime;
      private Integer maxLoginCount;
      private Integer errLoginCount;
-     private String ipAddress;
+     private String lastIp;
      private String orgId;
      private String deptId;
      private String lang;
@@ -148,12 +148,12 @@ public class SysUser  {
         this.errLoginCount = errLoginCount;
     }
 
-    public String getIpAddress() {
-        return this.ipAddress;
+    public String getLastIp() {
+        return this.lastIp;
     }
     
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public void setLastIp(String lastIp) {
+        this.lastIp = lastIp;
     }
 
     public String getOrgId() {

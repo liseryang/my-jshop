@@ -35,10 +35,17 @@ public class SysUserControl {
 	@ResponseBody
 	public DataGridModel querySysUserList(DataGridModel dataGrid,HttpServletRequest request){
 		RequestParmConvert.intropectToDataGrid(request,dataGrid);
-		List<SysUser> userList=sysUserService.querySysUser(dataGrid.getQueryMap());
-		dataGrid.setTotal(userList.size()+10);
-		dataGrid.setRows(userList);
-		return dataGrid;
+//		List<SysUser> userList=sysUserService.querySysUser(dataGrid.getQueryMap());
+//		sysUserService.querySysUserData(dataGrid);
+//		dataGrid.setTotal(userList.size()+10);
+//		dataGrid.setRows(userList);
+		return sysUserService.querySysUserData(dataGrid);
 	}
 	
+	
+	@RequestMapping("/user_add")
+	public ModelAndView  userAddPage() throws ServletException, IOException{
+		//querySysUserList(map);
+		return new ModelAndView("sys/sysmng/sys_user_add","","");
+	}
 }

@@ -14,6 +14,7 @@ public class ReflectUtil {
 	public ReflectUtil() {
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void setFieldValue(Object target, String fname, Class ftype, Object fvalue) {
 		if (target == null || fname == null || "".equals(fname) || fvalue != null && !ftype.isAssignableFrom(fvalue.getClass()))
 			return;

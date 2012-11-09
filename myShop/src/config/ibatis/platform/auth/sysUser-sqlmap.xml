@@ -10,20 +10,20 @@
 			PASSWORD,
 			REAL_NAME realName,
 			STATUS,
+			MOBILE_NO mobileNo,
+			PHONE_NO phoneNo,
 			EMAIL,
 			INVAL_DATE invalDate,
 			LAST_LOGIN lastLogin,
 			UNLOCK_TIME unlockTime,
 			MAX_LOGIN_COUNT maxLoginCount,
 			ERR_LOGIN_COUNT errLoginCount,
-			IP_ADDRESS ipAddress,
+			LAST_IP lastIp,
 			ORG_ID orgId,
 			DEPT_ID deptId,
 			LANG,
-			FIELD1,
-			FIELD2,
-			FIELD3 
-		FROM sys_user
+			REMARK
+			FROM sys_user
 		where 1=1	
 	   <isNotEmpty prepend="and" property="userId">
 			 USER_ID=#userId#
@@ -46,19 +46,19 @@
 			PASSWORD,
 			REAL_NAME realName,
 			STATUS,
+			MOBILE_NO mobileNo,
+			PHONE_NO phoneNo,
 			EMAIL,
 			INVAL_DATE invalDate,
 			LAST_LOGIN lastLogin,
 			UNLOCK_TIME unlockTime,
 			MAX_LOGIN_COUNT maxLoginCount,
 			ERR_LOGIN_COUNT errLoginCount,
-			IP_ADDRESS ipAddress,
+			LAST_IP lastIp,
 			ORG_ID orgId,
 			DEPT_ID deptId,
 			LANG,
-			FIELD1,
-			FIELD2,
-			FIELD3 
+			REMARK
 		FROM sys_user
 		where 1=1	
 	   <isNotEmpty prepend="and" property="userId">

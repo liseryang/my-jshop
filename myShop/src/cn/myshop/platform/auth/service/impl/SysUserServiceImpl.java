@@ -1,6 +1,5 @@
 package cn.myshop.platform.auth.service.impl;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,14 +8,8 @@ import org.springframework.stereotype.Service;
 
 import cn.myshop.platform.auth.service.SysUserService;
 import cn.myshop.platform.common.base.BaseDaoTemplate;
+import cn.myshop.platform.common.base.DataGridModel;
 import cn.myshop.platform.entitys.SysUser;
-
-import com.ibatis.sqlmap.engine.execution.SqlExecutorback;
-import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
-import com.ibatis.sqlmap.engine.mapping.sql.Sql;
-import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
-import com.ibatis.sqlmap.engine.scope.SessionScope;
-import com.ibatis.sqlmap.engine.scope.StatementScope;
 
 /**
  * 系统用户管理
@@ -63,6 +56,9 @@ public class SysUserServiceImpl  implements SysUserService{
 		return sysUserlist;
 	}
 	 
+	public DataGridModel querySysUserData(DataGridModel dataGrid){
+		  return baseDaoTemplate.queryForPageDataGrid("querySysUser", dataGrid);
+	}
 
 	public SysUser addSysUser(SysUser sysUser) {
 		// TODO Auto-generated method stub

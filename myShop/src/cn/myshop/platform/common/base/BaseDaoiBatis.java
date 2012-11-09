@@ -1,5 +1,7 @@
 package cn.myshop.platform.common.base;
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import cn.myshop.platform.common.util.ReflectUtil;
@@ -35,4 +37,10 @@ public class BaseDaoiBatis extends SqlMapClientDaoSupport {
 		}
 	}
 
+	public static void main(String[] a) throws UnsupportedEncodingException{
+		StringBuilder sb=new StringBuilder();
+		sb.append("中国在");
+		sb.append("asda");
+		System.out.print(sb.toString());
+	}
 }
