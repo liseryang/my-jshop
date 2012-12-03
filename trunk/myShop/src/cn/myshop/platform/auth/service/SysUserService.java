@@ -1,6 +1,5 @@
 package cn.myshop.platform.auth.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,8 @@ public interface SysUserService {
 	public SysUser getSysUser(SysUser sysUser);
 	public List<SysUser> querySysUser(Map<String,String> userMap);
 	public DataGridModel querySysUserData(DataGridModel dataGrid);
-	public SysUser addSysUser(SysUser sysUser);
-	public SysUser updateSysUser(SysUser sysUser);
-	public SysUser batchDelSysUser(HashMap userMap);
+	public boolean addSysUser(SysUser sysUser);
+	public int updateSysUser(SysUser sysUser);
+	public int batchDelSysUser(List<String> userId)  throws Exception;
+	public int changeSysUserPwd(SysUser sysUser);
 }

@@ -2,13 +2,10 @@ package cn.myshop.platform.entitys;
  
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.Map;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import cn.myshop.platform.common.util.CustomDateSerializer;
 
 
@@ -25,19 +22,19 @@ public class SysUser  {
      private String realName;
      private String status;
      private String email;
-     @DateTimeFormat(pattern="yyyy-MM-dd") 
-     private Date invalDate;
-     private Date lastLogin;
-     private Date unlockTime;
+     private String mobileNo;
+     private String phoneNo;
+     private String sex;
+     private Date invalidDate;
+     private String lastLogin;
+     private String unlockTime;
      private Integer maxLoginCount;
      private Integer errLoginCount;
      private String lastIp;
      private String orgId;
      private String deptId;
      private String lang;
-     private String field1;
-     private String field2;
-     private String field3;
+     private String remark;
 
      private  SysUser sysUser;
      private Map<Object,Object> map;
@@ -55,11 +52,9 @@ public class SysUser  {
 	public SysUser() {
     }
     
-
     public SysUser getSysUser() {
 		return sysUser;
 	}
-
 
 	public void setSysUser(SysUser sysUser) {
 		this.sysUser = sysUser;
@@ -106,29 +101,28 @@ public class SysUser  {
         this.email = email;
     }
 
-    public Date getInvalDate() {
-        return this.invalDate;
+    @JsonSerialize(using=CustomDateSerializer.class)
+    public Date getInvalidDate() {
+        return this.invalidDate;
     }
     
-    public void setInvalDate(Date invalDate) {
-        this.invalDate = invalDate;
+    public void setInvalidDate(Date invalidDate) {
+        this.invalidDate = invalidDate;
     }
 
-    @JsonSerialize(using=CustomDateSerializer.class)
-    public Date getLastLogin() {
+    public String getLastLogin() {
         return this.lastLogin;
     }
     
-    @DateTimeFormat(pattern="yyyy-MM-dd") 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(String lastLogin) {
         this.lastLogin = lastLogin;
     }
 
-    public Date getUnlockTime() {
+    public String getUnlockTime() {
         return this.unlockTime;
     }
     
-    public void setUnlockTime(Date unlockTime) {
+    public void setUnlockTime(String unlockTime) {
         this.unlockTime = unlockTime;
     }
 
@@ -180,30 +174,6 @@ public class SysUser  {
         this.lang = lang;
     }
 
-    public String getField1() {
-        return this.field1;
-    }
-    
-    public void setField1(String field1) {
-        this.field1 = field1;
-    }
-
-    public String getField2() {
-        return this.field2;
-    }
-    
-    public void setField2(String field2) {
-        this.field2 = field2;
-    }
-
-    public String getField3() {
-        return this.field3;
-    }
-    
-    public void setField3(String field3) {
-        this.field3 = field3;
-    }
-
 	public String getUserName() {
 		return userName;
 	}
@@ -216,11 +186,51 @@ public class SysUser  {
 
 
 public static void main(String[] a) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
-	SysUser user=new SysUser();
-	Class clas=user.getClass();//.forName("cn.myshop.platform.entitys.SysUser");
-	Method method=clas.getDeclaredMethod("setUserName",new Class[] { String.class });
-	method.invoke(user, new String[]{"测试"});
-	System.out.print(user.getUserName());
+//	SysUser user=new SysUser();
+//	Class clas=user.getClass();//.forName("cn.myshop.platform.entitys.SysUser");
+//	Method method=clas.getDeclaredMethod("setUserName",new Class[] { String.class });
+//	method.invoke(user, new String[]{"测试"});
+//	System.out.print(user.getUserName());
+}
+
+
+public String getMobileNo() {
+	return mobileNo;
+}
+
+
+public void setMobileNo(String mobileNo) {
+	this.mobileNo = mobileNo;
+}
+
+
+public String getPhoneNo() {
+	return phoneNo;
+}
+
+
+public void setPhoneNo(String phoneNo) {
+	this.phoneNo = phoneNo;
+}
+
+
+public String getRemark() {
+	return remark;
+}
+
+
+public void setRemark(String remark) {
+	this.remark = remark;
+}
+
+
+public String getSex() {
+	return sex;
+}
+
+
+public void setSex(String sex) {
+	this.sex = sex;
 }
 
 
