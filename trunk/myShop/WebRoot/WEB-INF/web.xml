@@ -45,14 +45,16 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>/sys/admin_login.do</welcome-file>
 	</welcome-file-list>
-	
+   <session-config>
+    <session-timeout>30</session-timeout>
+   </session-config>
+   
 	<error-page>
 		<error-code>404</error-code>
 		<location>/jsp/common/404.jsp</location>
 	</error-page>
-	 <!--  -->
 	 <error-page>
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/jsp/common/uncaughtException.jsp</location>

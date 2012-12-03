@@ -9,10 +9,17 @@
 		margin: 0;
 		padding: 0;
 		overflow-x: hidden;
+		overflow-y: hidden;
 	}
 </style>
-<script type="text/javascript" src="<%=basePath%>/scripts/easyui/jquery-1.7.2.min.js"></script>
-<link rel="stylesheet" href="<%=basePath%>/jsp/admin/css/custom.css" type="text/css" />
+<script type="text/javascript" src="<%=basePath%>/js/easyui/jquery-1.7.2.min.js"></script>
+<link rel="stylesheet" href="<%=basePath%>/jsp/admin/css/admin.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>/js/easyui/themes/default/easyui.css">
+<script type="text/javascript" src="<%=basePath%>/js/easyui/easyloader.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/easyui/extendvalidatebox.js"></script>
+<link rel="stylesheet" href="<%=basePath%>/jsp/admin/css/base.css"	type="text/css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>/js/easyui/themes/icon.css">
 <style type="text/css"></style>
 <base target="sysMain"/>
 </head>
@@ -28,10 +35,11 @@
 							菜籽商城后台管理
 						</div>
 						<div id="topnav">
-							<a ><b>Admin</b> 您好!&nbsp; 现在是: 2012/09/09 19:05:30</a> |
+							<a ><b>${userInfo.userName}</b> 您好!&nbsp; 现在是: 2012/09/09 19:05:30</a> |
 							<a href="#">个人资料</a> |
+							<a href="javascript:openPassword();" target="_self"> 修改密码</a> |
 							<a href="#"> 网站首页</a> |
-							<a href="#"> 退出</a>
+							<a href="<%=basePath%>/sys/logout.do" target="_self"> 退出</a>
 							<br />
 							
 						</div>
@@ -125,7 +133,7 @@
 			</td>
 			<td width="6px"><div id="hideLeft" class="expandLeftMenu">&nbsp;</div></td>
 			<td width="100%" id="maintd" class="adminBody" align="center" height="100%">
-				<iframe id="sysMain" name="sysMain" src="<%=basePath%>/sys/user_mng.do" marginwidth="0" marginheight="0"
+				<iframe id="sysMain" name="sysMain" src="<%=basePath%>/sys/mngSysUser_page.do" marginwidth="0" marginheight="0"
 				  scrolling="auto" style="overflow-x:hidden;" class="main_frame" 
 				   width="100%" height="100%" frameborder="0" >
 					[管理项对应操作页面]
@@ -133,7 +141,51 @@
 			</td>
 		</tr>
 	</table>
-	<script type="text/javascript">
+	
+<div id="changePwdDialg" class="easyui-dialog" style="width:340px;height:186px;padding:6px 12px;" closed="true" buttons="#dlg-buttons">
+<form id="changePwdForm" method="post" class="inputForm" novalidate>
+	<div>
+		<label>输入原密码：</label>
+		<input id="oldPwd" name="oldPwd" type="password" validType="length[6,20]" class="formText easyui-validatebox" required="true">
+	</div>
+	<div>
+		<label>输入新密码：</label>
+		<input id ="newPwd" name="newPwd" type="password" validType="length[6,20]"  class="formText easyui-validatebox" required="true">
+	</div>
+	<div>
+		<label>重复新密码：</label>
+		<input id ="newPwd2" name="newPwd2" type="password" validType="equalTo['#newPwd']" invalidMessage="两次输入的新密码不一致，请重新输入" class="formText easyui-validatebox" required="true">
+	</div>
+</form>
+</div>
+<div id="dlg-buttons">
+<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="changePassword()">确定</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#changePwdDialg').dialog('close')">取消</a>
+</div>
+
+	
+<script type="text/javascript">
+function openPassword(){
+	$('#changePwdDialg').dialog('open').dialog('setTitle','密码修改');
+	$('#changePwdForm').form('clear');
+}
+
+function changePassword(){
+   if(!$('#changePwdForm').form('validate')) {
+		return false;
+   }   
+     
+  $.post("<%=basePath%>/sys/changeUserPassword.do",$("#changePwdForm").serializeArray(),function(data){
+			//$.messager.alert('提示',data.msg,'info');
+			$.messager.show({title: '提示',	msg: data.msg});
+			if(data.result==true){
+			  $('#changePwdDialg').dialog('close');
+			}	
+  });
+
+}
+
+
 $(function(){
 	
 	//显示二级菜单
@@ -187,6 +239,14 @@ $(function(){
    })
    
 });
+
+function logout(){
+  	$.messager.confirm('提示', '确定退出吗?', function(r){
+	if (r){
+	 	$.get("<%=basePath%>/sys/logout.do");
+	  }
+	});
+}
 </script>
 </body>
 </html>
