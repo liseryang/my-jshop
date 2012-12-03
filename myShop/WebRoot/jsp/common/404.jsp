@@ -8,12 +8,12 @@
 	</head>
 	<body style="margin:0">
 		<div
-			style="text-align: center; font-size: 12px; vertical-align: top; width: 100%; height: 100%; background: url('resources/img/common//404_bg.jpg');">
-			<img src="resources/img/common/404.jpg" />
+			style="text-align: center; font-size: 12px; vertical-align: top; width: 100%; height: 100%; background: url('<%=basePath %>/resources/img/common//404_bg.jpg');">
+			<img src="<%=basePath %>/resources/img/common/404.jpg" />
 			<br></br>
 			您请求的资源没找到,请检查输入地址是否正确，再进行重试！ 
 			<br></br>
-			返回到<a href="./">首页</a> <a href="javascript:window.close();">关闭当前页面 </a>
+			返回到<a href="<%=basePath %>/sys/admin_login.do">首页</a> <a href="javascript:window.close();">关闭当前页面 </a>
 			
 		</div>
 	</body>
