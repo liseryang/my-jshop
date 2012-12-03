@@ -72,26 +72,7 @@
             <ref bean="sqlExecutor" />
         </property> 
     </bean> 
-	
 
-	<!-- jackson bean配置，用来处理json数据转换，supportedMediaTypes指定了json数据编码为utf-8，默认为ISO-88859-1 -->	
-	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
-		<property name="messageConverters">
-			<list>
-				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
-			</list>
-		</property>
-	</bean>
-	<!-- 
-	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/html;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
-	 -->
 	<!--声明式事务控制  -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
