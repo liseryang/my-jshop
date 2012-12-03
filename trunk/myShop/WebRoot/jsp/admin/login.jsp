@@ -3,9 +3,8 @@
 <html> 
 	<head>
 		<title>系统登录</title>
-		<jsp:include page="/jsp/common/public.jsp"/>
-		<link rel="stylesheet" href="jsp/admin/css/custom.css" type="text/css" />
-		<link rel="stylesheet" href="jsp/admin/css/style.css" type="text/css" />
+		<%@ include file="/jsp/common/common.jsp" %>
+		<link rel="stylesheet" href="<%=basePath%>/jsp/admin/css/base.css" type="text/css" />
 		<script type="text/javascript">
 		function reset(){
 				$('#loginform').form('clear');
@@ -35,14 +34,14 @@
 								用户名:
 							</label>
 							<br />
-							<input type="text" id="userName"   validType="length[5,20]" class="width2 easyui-validatebox" value="" name="userName" required="true"/>
+							<input type="text" id="userName"   validType="length[5,20]" class="formText" value="" name="userName" required="true"/>
 						</p>
 						<p>
 							<label class="required" for="password">
 								密 码:
 							</label>
 							<br />
-							<input type="password" id="password" validType="length[6,20]" class="width2 easyui-validatebox" value="" name="password" required="true"/>
+							<input type="password" id="password" validType="length[6,20]" class="formText width2 easyui-validatebox" value="" name="password" required="true"/>
 						</p>
 						<p>
 							<input type="submit" class="btn btn-green big" value="登 录" />

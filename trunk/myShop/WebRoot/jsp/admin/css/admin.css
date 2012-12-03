@@ -3,7 +3,8 @@ html,body{
     padding:0;
     border:0;
     height:100%;
-    font-size:12px;   overflow-x: hidden;
+    font-size:12px; 
+    overflow-x: hidden;
 }
 ul, li {
     list-style: none outside none;
@@ -240,34 +241,4 @@ background:url("../img/up.gif")  no-repeat center ;
 }
 *html .main_frame{
   margin-top:0;
-}
-
-.inputTablea{
-	width:98%;
-	border:#99BBE8 solid 0px;
-	height:100%;
-	vertical-align:baseline;
-	background:#E1E9FC;
-	font-size:12px;
-	font-weight:100;
-	margin:2px 2px;
-}
-
-.inputTablea th{
-	background:#F9FBFD;
-	height:32px;
-	text-align:right;
-	font-weight:normal;
-	vertical-align:middle;
-	padding-right:2px;
-}
-
-.inputTablea td{
-	background:#ffffff;
-	height:32px;
-	vertical-align:middle;
-	padding-left:2px;
-}  
-.requireField{
-color:red;
 }

@@ -8,7 +8,7 @@
 	}
  </style>
     <title>My JSP 'test.jsp' starting page</title>
-	 	<jsp:include page="/jsp/common/public.jsp"/>
+	 	<jsp:include page="/jsp/common/common.jsp"/>
 	 	<link rel="stylesheet" href="jsp/admin/css/custom.css" type="text/css" />
   </head>
   <body>
