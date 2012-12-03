@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import cn.myshop.platform.common.base.DataGridModel;
 
 /**
- * 转换requestParameters到Map中
+ * 转换requestParameters到Map中,实现自动封装请求的参数
  * @date 2012-09-24 20:10:58
  * @author llliang
  *
@@ -19,7 +19,8 @@ import cn.myshop.platform.common.base.DataGridModel;
 public class RequestParmConvert {
 	
 	/**
-	 * 转换requestParameters到Map中
+	 * 获取request中的数据转换到Map中
+	 *  元素name属性做为key值
 	 * @param HttpServletRequest request
 	 * @return
 	 */
@@ -37,7 +38,7 @@ public class RequestParmConvert {
 
 
 	 /**
-	  * 转换requestParameters到DataGridModel中
+	  * 获取request中的数据转换到DataGridModel中
 	  * @param request
 	  * @param dataGrid
 	  * @return

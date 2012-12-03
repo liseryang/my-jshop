@@ -15,4 +15,7 @@ public class ConstantPlatform {
 	/**系统用户状态 锁定*/
 	public static final String SYSUSER_STATUS_LOCK="2";
 	
+	/**存放登录用户信息 */
+	public static final String SYS_USER_INFO="userInfo";
+	
 }

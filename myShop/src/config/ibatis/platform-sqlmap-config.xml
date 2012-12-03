@@ -4,4 +4,5 @@
 
 <sqlMapConfig>
 	<sqlMap resource="config/ibatis/platform/auth/sysUser-sqlmap.xml"/>
+	<sqlMap resource="config/ibatis/platform/platform-sqlmap.xml"/>
 </sqlMapConfig>

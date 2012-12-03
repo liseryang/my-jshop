@@ -1,7 +1,9 @@
 package cn.myshop.platform.common.base;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -108,7 +110,6 @@ public class BaseDaoTemplate {
 	 */
 	@SuppressWarnings("unchecked")
 	public List queryForPageList(String statementId, DataGridModel dataGrid) {
-		if(StringUtils.isNotEmpty(statementId)||dataGrid==null)return null;
 		int page=dataGrid.getPage();
 		int pageRows=dataGrid.getPageRows();
 		List rows=	getIbatisTemplate().queryForList(statementId,dataGrid.getQueryMap(),(page-1)*pageRows,(page-1)*pageRows+pageRows);
@@ -124,10 +125,7 @@ public class BaseDaoTemplate {
 	 */
 	@SuppressWarnings("unchecked")
 	public DataGridModel queryForPageDataGrid(String statementId,DataGridModel dataGrid) {
-		if(StringUtils.isEmpty(statementId)||dataGrid==null)return null;
-		
 		dataGrid.setTotal(getQueryCount(statementId,dataGrid.getQueryMap()));
-		
 		int page=dataGrid.getPage();
 		int pageRows=dataGrid.getPageRows();
 		List rows=	getIbatisTemplate().queryForList(statementId,dataGrid.getQueryMap(),(page-1)*pageRows,(page-1)*pageRows+pageRows);
@@ -135,6 +133,35 @@ public class BaseDaoTemplate {
 		return dataGrid;
 	}
 
+	/**
+	 * 使用数据库中的max函数获取指定表中指定字段的最大值
+	 * @param tableName
+	 * @param columnName
+	 * @return Object
+	 */
+	public Object getColumnMaxValue(String tableName,String columnName){
+		if(StringUtils.isBlank(tableName)||StringUtils.isBlank(columnName))
+		throw new NullPointerException("parameter tableName or columnName is null");
+		Map<String,String> map=new HashMap<String,String>();
+		map.put("tableName", tableName.toUpperCase());
+		map.put("columnName", columnName.toUpperCase());
+	   return getIbatisTemplate().queryForObject("getColumnMaxValue", map);
+	}
+	
+	/**
+	 * 使用数据库中的max函数获取指定表中指定字段的最大值,如果没有数据则返回零
+	 * @param tableName
+	 * @param columnName
+	 * @return int
+	 */
+	public int getColumnMaxValueForInt(String tableName,String columnName){
+		Object object=this.getColumnMaxValue(tableName,columnName);
+		if(object==null){ 
+			return 0;
+		 }else{
+			return Integer.parseInt(object.toString());
+		}
+	}
 	
 	public static void main(String[] ab) {
 		String a = "    select * select ";
