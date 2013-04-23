@@ -25,9 +25,9 @@ public class RequestParmConvert {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static Map<String, String> intropectToMap(HttpServletRequest request) {
+	public static Map<String, Object> intropectToMap(HttpServletRequest request) {
 		Enumeration e = request.getParameterNames();
-		Map<String, String> parmMap = new HashMap<String, String>();
+		Map<String, Object> parmMap = new HashMap<String, Object>();
 		String name =null;
 		while (e.hasMoreElements()) {
 			name= (String) e.nextElement();

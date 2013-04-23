@@ -14,7 +14,7 @@ import cn.myshop.platform.entitys.SysUser;
   */
 public interface SysUserService {
 	public SysUser getSysUser(SysUser sysUser);
-	public List<SysUser> querySysUser(Map<String,String> userMap);
+	public int queryCountSysUser(Map<String, Object> userMap);
 	public DataGridModel querySysUserData(DataGridModel dataGrid);
 	public boolean addSysUser(SysUser sysUser);
 	public int updateSysUser(SysUser sysUser);

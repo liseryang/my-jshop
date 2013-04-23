@@ -1,5 +1,6 @@
 package cn.myshop.platform.common.base;
 
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -9,12 +10,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 
+import cn.myshop.platform.common.util.JdbcTypeHandler;
 import cn.myshop.platform.common.util.ReflectUtil;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.engine.execution.SqlExecutor;
 import com.ibatis.sqlmap.engine.impl.ExtendedSqlMapClient;
 import com.ibatis.sqlmap.engine.impl.SqlMapClientImpl;
+import com.ibatis.sqlmap.engine.mapping.parameter.ParameterMap;
 import com.ibatis.sqlmap.engine.mapping.sql.Sql;
 import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
 import com.ibatis.sqlmap.engine.scope.SessionScope;
@@ -80,14 +83,24 @@ public class BaseDaoTemplate {
 	public int getQueryCount(String statementId, Object objectParm) {
 		try {
 			SqlMapClientImpl sqlmapClient = (SqlMapClientImpl) getIbatisTemplate().getSqlMapClient();
-			MappedStatement mappedStatement = sqlmapClient.getMappedStatement(statementId);
-			Sql stmtSql = mappedStatement.getSql();
-			SessionScope sessionScope = new SessionScope();
-			sessionScope.setSqlMapClient(sqlmapClient);
-			StatementScope statementScope = new StatementScope(sessionScope);
-			sessionScope.incrementRequestStackDepth();
-			mappedStatement.initRequest(statementScope);
-			String querySql = stmtSql.getSql(statementScope, objectParm).toUpperCase();
+//			MappedStatement mappedStatement = sqlmapClient.getMappedStatement(statementId);
+//			Sql stmtSql = mappedStatement.getSql();
+//			
+//			SessionScope sessionScope = new SessionScope();
+//			sessionScope.setSqlMapClient(sqlmapClient);
+//			
+//			StatementScope statementScope = new StatementScope(sessionScope);
+//			statementScope.setStatement(mappedStatement);
+//			String querySql=stmtSql.getSql(statementScope, objectParm);
+//			
+////			sessionScope.incrementRequestStackDepth();
+////			mappedStatement.initRequest(statementScope);
+////			String querySql = stmtSql.getSql(statementScope, objectParm).toUpperCase();
+//			  ParameterMap parameterMap = stmtSql.getParameterMap(statementScope, objectParm);
+//			 Object[] parameters = parameterMap.getParameterObjectValues(statementScope, objectParm);
+//			
+			String querySql= JdbcTypeHandler.getStatementSql(statementId,objectParm,sqlmapClient);
+			 
 			// 确保执行的sql为查询类型sql
 			if (querySql.trim().indexOf("SELECT") != 0) {
 				throw new Exception("The currently executing SQL statement, not the query sql。ibatis statement id："+statementId);
