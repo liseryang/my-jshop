@@ -38,8 +38,7 @@
 						密码失效日期：
 					</th>
 					<td>
-						<input type="text" required="true" name="invalidDate"
-							class="formText easyui-validatebox" validType="length[8,20]"
+						<input  id="invalidDate" name="invalidDate" require="true" editable="false" 
 							value="" />
 						<label class="requireField">
 							*
@@ -49,7 +48,7 @@
 						用户状态：
 					</th>
 					<td>
-						<select id="status" name="status" panelHeight="80" class="easyui-combobox" required="true" style="width: 100px;">
+						<select id="status" name="status" panelHeight="80"  required="true" style="width: 100px;">
 							<option value="0">正常</option>
 							<option value="1">停用</option>
 							<option value="2">锁定</option>
@@ -159,6 +158,9 @@
 		</form>
 		
 <script type="text/javascript">
+
+ $('#invalidDate').datebox({   
+  });  
 
    function closeWindow(){
          $('#sysUserWindow').window('close');

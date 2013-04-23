@@ -110,7 +110,7 @@
 				   <div id="sysmng" style="display:none">
 				   	<div>人员权限<span class="opendown"></span></div>
 					 <ul>
-					 	<li><a href="<%=basePath%>/sys/user_mng.do?userId=123" >人员管理</a></li>
+					 	<li><a href="<%=basePath%>/sys/mngSysUser_page.do?userId=123" >人员管理</a></li>
 					 	<li><a href="#">人员权限关联</a></li>
 					 </ul>
 					<div>角色权限 <span class="opendown"></span></div>

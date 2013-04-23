@@ -7,3 +7,4 @@
 <link rel="stylesheet" type="text/css" href="<%=basePath%>/js/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="<%=basePath%>/jsp/admin/css/sys.css">
 <script type="text/javascript" src="<%=basePath%>/js/platform/base.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/easyui/extendvalidatebox.js"></script>
