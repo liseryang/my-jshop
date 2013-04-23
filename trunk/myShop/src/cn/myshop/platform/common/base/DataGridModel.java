@@ -1,5 +1,6 @@
 package cn.myshop.platform.common.base;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class DataGridModel  implements java.io.Serializable {
 	private int startRow;
 	private int endRow;
 	
-	private Map<String,String> queryMap;
+	private Map<String,Object> queryMap=new HashMap<String,Object>();
 	
 	public int getPage() {
 		return page;
@@ -54,10 +55,10 @@ public class DataGridModel  implements java.io.Serializable {
 	public void setTotal(int total) {
 		this.total = total;
 	}
-	public Map<String, String> getQueryMap() {
+	public Map<String, Object> getQueryMap() {
 		return queryMap;
 	}
-	public void setQueryMap(Map<String, String> queryMap) {
+	public void setQueryMap(Map<String, Object> queryMap) {
 		this.queryMap = queryMap;
 	}
 	@SuppressWarnings("unchecked")

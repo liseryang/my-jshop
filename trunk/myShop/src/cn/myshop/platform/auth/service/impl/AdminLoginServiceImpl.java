@@ -1,5 +1,7 @@
 package cn.myshop.platform.auth.service.impl;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.myshop.platform.auth.service.AdminLoginService;
@@ -7,13 +9,15 @@ import cn.myshop.platform.common.base.BaseDaoTemplate;
 import cn.myshop.platform.entitys.SysUser;
 
 @Service("adminLoginService")
-public class AdminLoginServiceImpl extends BaseDaoTemplate implements AdminLoginService{
-
+public class AdminLoginServiceImpl  implements AdminLoginService{
+	
+	@Autowired
+	public BaseDaoTemplate baseDaoTemplate;
+	
 	public SysUser adminLogin(SysUser sysUser) {
 		
 		return this.getSysUser(sysUser);
 	}
-	
 	
 	/**
 	 * 查询用户信息
@@ -21,7 +25,7 @@ public class AdminLoginServiceImpl extends BaseDaoTemplate implements AdminLogin
 	 * @return
 	 */
 	public SysUser getSysUser(SysUser sysUser){
-		sysUser=(SysUser) getIbatisTemplate().queryForObject("getSysUser",sysUser);
+		sysUser=(SysUser) baseDaoTemplate.getIbatisTemplate().queryForObject("getSysUser",sysUser);
 		return sysUser;
 	}
 

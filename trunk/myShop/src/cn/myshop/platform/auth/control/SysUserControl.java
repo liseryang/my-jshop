@@ -34,20 +34,23 @@ public class SysUserControl  extends HttpServlet{
 	
 	@RequestMapping("/mngSysUser_page")
 	public ModelAndView  userPage(SysUser sysUser) {
-		return new ModelAndView("sys/sysmng/sys_user_mng");
+		return new ModelAndView("sys/sysmng/mng_sys_user");
 	}
 	
 	@RequestMapping("/querySysUser")
 	@ResponseBody
 	public DataGridModel querySysUserList(DataGridModel dataGrid,HttpServletRequest request){
+		
 		RequestParmConvert.intropectToDataGrid(request,dataGrid);
+		//dataGrid.getQueryMap().put("userId", 1);
+		//dataGrid.getQueryMap().put("userName", "admin");
 		return sysUserService.querySysUserData(dataGrid);
 	}
 	
 	
 	@RequestMapping("/addSysUser_page")
 	public ModelAndView  addSysUserPage(){
-		return new ModelAndView("sys/sysmng/sys_user_add");
+		return new ModelAndView("sys/sysmng/add_sys_user");
 	}
 	
 	@RequestMapping("/addSysUser")
@@ -67,7 +70,7 @@ public class SysUserControl  extends HttpServlet{
 	
 	@RequestMapping("/viewSysUser_page")
 	public ModelAndView  sysUserViewPage() throws ServletException, IOException{
-		return new ModelAndView("sys/sysmng/sys_user_view");
+		return new ModelAndView("sys/sysmng/view_sys_user");
 	}
 	
 	@SuppressWarnings("finally")
@@ -148,18 +151,21 @@ public class SysUserControl  extends HttpServlet{
 	
 	@RequestMapping("/checkUserName")
 	@ResponseBody
-	public boolean checkUserName(HttpServletRequest request){
-		 
-		String userName=request.getParameter("userName");
-		SysUser sysUser=new SysUser();
-		sysUser.setUserName(userName);
-		sysUser=sysUserService.getSysUser(sysUser);
-		if(sysUser==null){
-		    return true;
-		}else{
-			return false;
-		}
-			
-		
+	public Map<String,Object> checkUserName(HttpServletRequest request){
+		Map<String,Object> map=RequestParmConvert.intropectToMap(request);
+		try{
+			int countUser=sysUserService.queryCountSysUser(map);
+			if(countUser==0){
+				map.put("msg", "名字可以使用");
+				map.put("result", true);
+			}else{
+				map.put("msg", "名字已经存在");
+				map.put("result", false);
+			}
+		}catch(Exception e){
+			map.put("msg", "系统异常请稍后再试！");
+			map.put("result", false);
+		}	
+		return map;
 	}
 }

@@ -1,10 +1,12 @@
 package cn.myshop.platform.auth.service.impl;
 
+
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientCallback;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +26,10 @@ import com.ibatis.sqlmap.client.SqlMapExecutor;
  * 
  */
 @Service("sysUserService")
-public class SysUserServiceImpl extends BaseDaoTemplate implements SysUserService {
+public class SysUserServiceImpl implements SysUserService {
+	
+	@Autowired
 	public BaseDaoTemplate baseDaoTemplate;
-
-	public BaseDaoTemplate getBaseDaoTemplate() {
-		return baseDaoTemplate;
-	}
-
-	public void setBaseDaoTemplate(BaseDaoTemplate baseDaoTemplate) {
-		this.baseDaoTemplate = baseDaoTemplate;
-	}
 
 	public SysUser adminLogin(SysUser sysUser) {
 		return this.getSysUser(sysUser);
@@ -51,14 +47,12 @@ public class SysUserServiceImpl extends BaseDaoTemplate implements SysUserServic
 	}
 
 	/**
-	 * 查询系统用户
+	 * 查询系统用户总数
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	public List<SysUser> querySysUser(Map<String, String> userMap) {
-		List<SysUser> sysUserlist = baseDaoTemplate.getIbatisTemplate().queryForList("querySysUser", userMap, Integer.parseInt(userMap.get("startRow")),
-				Integer.parseInt(userMap.get("endRow")));
-		return sysUserlist;
+	public int queryCountSysUser(Map<String, Object> userMap) {
+		return baseDaoTemplate.getQueryCount("querySysUser", userMap);
 	}
 
 	/**
@@ -72,10 +66,10 @@ public class SysUserServiceImpl extends BaseDaoTemplate implements SysUserServic
 	 * 添加用户
 	 */
 	public boolean addSysUser(SysUser sysUser) {
-		sysUser.setUserId(String.valueOf(this.getColumnMaxValueForInt("SYS_USER", "USER_ID") + 1));
+		sysUser.setUserId(String.valueOf(baseDaoTemplate.getColumnMaxValueForInt("SYS_USER", "USER_ID") + 1));
 		sysUser.setInvalidDate(new Date());
 		sysUser.setErrLoginCount(0);
-		getIbatisTemplate().insert("addSysUser", sysUser);
+		baseDaoTemplate.getIbatisTemplate().insert("addSysUser", sysUser);
 		return true;
 	}
 
@@ -85,7 +79,7 @@ public class SysUserServiceImpl extends BaseDaoTemplate implements SysUserServic
 	@SuppressWarnings("unchecked")
 	public int batchDelSysUser(final List<String> list) throws Exception {
 		if (list != null) {
-			getIbatisTemplate().execute(new SqlMapClientCallback() {
+			baseDaoTemplate.getIbatisTemplate().execute(new SqlMapClientCallback() {
 				public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
 					executor.startBatch();
 					for (int i = 0, n = list.size(); i < n; i++) {
@@ -104,7 +98,7 @@ public class SysUserServiceImpl extends BaseDaoTemplate implements SysUserServic
 	 * 修改用户信息
 	 */
 	public int updateSysUser(SysUser sysUser) {
-		return getIbatisTemplate().update("updateSysUser", sysUser);
+		return baseDaoTemplate.getIbatisTemplate().update("updateSysUser", sysUser);
 	}
 	
 	/**
@@ -113,6 +107,6 @@ public class SysUserServiceImpl extends BaseDaoTemplate implements SysUserServic
 	 * @return
 	 */
 	public int changeSysUserPwd(SysUser sysUser) {
-		return getIbatisTemplate().update("changeSysUserPwd", sysUser);
+		return baseDaoTemplate.getIbatisTemplate().update("changeSysUserPwd", sysUser);
 	}
 }

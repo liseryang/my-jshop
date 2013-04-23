@@ -39,7 +39,7 @@
 		</isNotEmpty>
 	</select>
 	
-	<select id="querySysUser" parameterClass="java.util.HashMap" resultClass="cn.myshop.platform.entitys.SysUser">
+	<select id="querySysUser" parameterClass="java.util.Map" resultClass="cn.myshop.platform.entitys.SysUser">
 		SELECT
 			USER_ID userId,
 			USER_NAME userName,
