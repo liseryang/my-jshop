@@ -16,7 +16,7 @@
 						登录名称：
 					</th>
 					<td width="35%">
-						<input type="text" name="userName" id="userName" validType="length[5,20]"
+						<input type="text" name="userName" id="userName" validType="loginName[5,20,'<%=basePath%>/sys/checkUserName.do','userName']"
 							class="formText easyui-validatebox" value="" required="true" />
 						<label class="requireField">
 							*
@@ -151,7 +151,6 @@
 };
    
    function saveUser(){
-   	 err('#orgId');
    
    		$('#userName').validatebox({
 		   		required:true,

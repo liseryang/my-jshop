@@ -31,9 +31,16 @@ function disableForm(formId,isDisabled) {
 	});
 	
 	//禁用jquery easyui中的下拉选
-	$("#" + formId + " select[class='easyui-combobox combobox-f combo-f']").each(function () {
+	$("#" + formId + " select[class='combobox-f combo-f']").each(function () {
 		if (this.id) {
 			$("#" + this.id).combobox(attr);
+		}
+	});
+	
+	//禁用jquery easyui中的日期组件dataBox
+	$("#" + formId + " input[class='datebox-f combo-f']").each(function () {
+		if (this.id) {
+			$("#" + this.id).datebox(attr);
 		}
 	});
 }

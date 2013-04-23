@@ -56,7 +56,7 @@
  function viewSysUser(row){
    $("#sysUserWindow").window({
   			title:'查看用户信息',
-  			href:'<%=basePath%>/sys/viewSysUser_page.do',
+  			href:'<%=basePath%>/sys/viewSysUser_page.do?type=view',
   			width:600,
   			height:400,
   			onLoad: function(){
@@ -76,7 +76,7 @@
 	
    $("#sysUserWindow").window({
   			title:'编辑用户信息',
-  			href:'<%=basePath%>/sys/viewSysUser_page.do',
+  			href:'<%=basePath%>/sys/viewSysUser_page.do?type=update',
   			width:600,
   			height:400,
   			onLoad: function(){

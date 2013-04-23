@@ -25,9 +25,12 @@ message: '手机号码不正确'
 },
 loginName: {
 validator: function (value, param) {
-return /^[\u0391-\uFFE5\w]+$/.test(value);
+  var checkResult=loginNameCheck(value,param[0],param[1],param[2],param[3]);
+// alert(checkResult[0]);
+ $.fn.validatebox.defaults.rules.loginName.message =checkResult[1];
+return checkResult[0];
 },
-message: '登录名称只允许汉字、英文字母、数字及下划线。'
+message: ''
 },
 safepass: {
 validator: function (value, param) {
@@ -121,3 +124,18 @@ if (s2 != undefined && s2 != '' && !isNaN(s2)) reVal = s2 * 1;
 return (reVal == s1 && s1.length != s5 || reVal > s4) ? -10000 : reVal;
 }
 };
+
+var loginNameCheck=function(value,minLength,maxLength,remoteUrl,paramName){
+   if($.trim(value).length<minLength||$.trim(value).length>maxLength){
+      return [false,'输入内容长度必须介于'+minLength+'和'+maxLength+'之间'];
+    }else if(!(/^[A-Za-z_]+\w+$/.test(value))){
+      return [false,'只允许英文字母、数字及下划线,且首字母必须为英文或下划线。'];
+    }else if($.trim(remoteUrl)){
+	   var param={};
+	   param[paramName]=value;
+	   var resultData=eval("("+$.ajax({url:remoteUrl,dataType:"json",data:param,async:false,cache:false,type:"post"}).responseText+")");;
+	 return [resultData.result,resultData.msg];
+    }else{
+      return [true,''];
+    }
+}
