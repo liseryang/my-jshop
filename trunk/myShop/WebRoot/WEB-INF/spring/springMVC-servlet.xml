@@ -8,7 +8,6 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
         default-autowire="byName">
 	
-	<mvc:view-controller path="/" view-name="home"/>
 	<!--声明系统将使用spring mvc那个控制器，springMVC默认为:BeanNameUrlHandlerMapping，根据控制器的名字将控制器映射到URL -->
 	<bean id="beanNameUrlMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 	
@@ -53,7 +52,7 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 	
-	<!--后台显示页面  -->
-	<mvc:view-controller path="/admin/main.do" view-name="admin/main"/>
+	<!--后台显示页面 不需要controler处理可直接转到该视图  -->
+	<mvc:view-controller path="/" view-name="sys/admin_login"/>
 </beans>
 
