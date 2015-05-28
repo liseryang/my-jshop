@@ -1,0 +1,1 @@
+一个免费的java开源商城系统。采用springMVC,ibatis,spring JdbcTemplate,jquery EasyUI等开源框架做为系统基础架构。
